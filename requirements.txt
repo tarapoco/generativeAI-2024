@@ -1,3 +1,5 @@
 gunicorn
-flask
-textblob
+flask == 2.3.1
+google-generativeai
+pysqlite3
+replicate
