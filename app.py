@@ -87,7 +87,7 @@ def video_reply():
         "num_frames": 10,
     },
 )
-time.sleep(60)
+    time.sleep(60)
     return(render_template("video_reply.html", r=r[0]))
 
 if __name__=="__main__":
