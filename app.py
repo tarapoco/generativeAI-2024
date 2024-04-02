@@ -55,40 +55,38 @@ def image_reply():
     },
 )
     return(render_template("image_reply.html", r=r[0]))
-    
-@app.route("/music_request", methods=["GET", "POST"])
+
+@app.route("/music_request",methods=["GET","POST"])
 def music_request():
     return(render_template("music_request.html"))
 
-
-@app.route("/music_reply", methods=["GET", "POST"])
+@app.route("/music_reply",methods=["GET","POST"])
 def music_reply():
     q = request.form.get("q")
-    replicate.run(
-    "meta/musicgen:7be0f12c54a8d033a0fbd14418c9af98962da9a86f5ff7811f9b3423a1f0b7d7",
-    input={
-        "prompt": q,
-        "duration:": 10
-    },
-)
-    return(render_template("music_reply.html", r=r[0]))    
+    r = replicate.run(
+        "meta/musicgen:7be0f12c54a8d033a0fbd14418c9af98962da9a86f5ff7811f9b3423a1f0b7d7",
+        input={
+            "prompt": q,
+            "duration:": 5
+        }
+    )
+    return(render_template("music_reply.html",r=r))
 
-@app.route("/video_request", methods=["GET", "POST"])
+@app.route("/video_request",methods=["GET","POST"])
 def video_request():
     return(render_template("video_request.html"))
 
-@app.route("/video_reply", methods=["GET", "POST"])
+@app.route("/video_reply",methods=["GET","POST"])
 def video_reply():
     q = request.form.get("q")
     r = replicate.run(
-    "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
-    input={
-        "prompt": q,
-        "num_frames": 5,
-    },
-)
-    time.sleep(60)
-    return(render_template("video_reply.html", r=r[0]))
+        "anotherjesse/zeroscope-v2-xl:9f747673945c62801b13b84701c783929c0ee784e4748ec062204894dda1a351",
+        input={
+            "prompt": q,
+            "num_frames": 20
+        }
+    )
+    return(render_template("video_reply.html",r=r[0]))
 
 if __name__=="__main__":
     app.run()
